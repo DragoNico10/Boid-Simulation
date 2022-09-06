@@ -28,8 +28,8 @@ class Boid{
     move(lx, ly){
         this.sprite.x=width/2-this.vX
         this.sprite.y=height/2-this.vY
-        this.sprite.pointTo(0, 0)
-        this.distance=dist(this.sprite.x, this.sprite.y, 0, 0)
+        this.sprite.pointTo(width/2, height/2)
+        this.distance=dist(this.sprite.x, this.sprite.y, width/2, height/2)
         this.target=(this.vX/this.distance)*TargetSpeed
         this.vX+=Resolve*(this.target-this.vX)
         this.target=(this.vY/this.distance)*TargetSpeed
@@ -78,9 +78,13 @@ class Boid{
             }
             otherId++
         }
-        this.vX+=Cohesion*(sumX/boidCount)
-        this.vY+=Cohesion*(sumY/boidCount)
-        this.vX+=Alignment*(SVX/boidCount)
-        this.vY+=Alignment*(SVX/boidCount)
+        if(!isNaN(Cohesion*(sumX/boidCount)))
+            this.vX+=Cohesion*(sumX/boidCount)
+        if(!isNaN(Cohesion*(sumY/boidCount)))
+            this.vY+=Cohesion*(sumY/boidCount)
+        if(!isNaN(Alignment*(SVX/boidCount)))
+            this.vX+=Alignment*(SVX/boidCount)
+        if(!isNaN(Alignment*(SVY/boidCount)))
+            this.vY+=Alignment*(SVX/boidCount)
     }
 }
