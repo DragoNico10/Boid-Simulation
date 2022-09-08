@@ -1,6 +1,6 @@
 class Boid{
     constructor(id){
-        this.distance;this.target
+        this.distance=0;this.target=0
         this.id=id
         this.sprite=createSprite(random(0, width), random(0, height), 48, 48)
         this.color=[Math.floor(random(0, 255)), Math.floor(random(0, 255)), Math.floor(random(0, 255))]
@@ -14,16 +14,20 @@ class Boid{
         boids.push(this)
         this.vX=random(-5, 5)
         this.vY=random(-5, 5)
-        this.distX
-        this.distY
+        this.distX=0
+        this.distY=0
         boidX.push(this.sprite.x)
         boidY.push(this.sprite.y)
         boidVX.push(this.vX)
         boidVY.push(this.vY)
     }
     run(){
+        this.id=boids.indexOf(this)
         this.move(this.sprite.x, this.sprite.y)
         this.calculate()
+        if(this.id>=Boids){
+            this.destroy()
+        }
     }
     move(lx, ly){
         this.sprite.x=width/2-this.vX
@@ -37,16 +41,16 @@ class Boid{
         this.sprite.x=lx+this.vX
         this.sprite.y=ly+this.vY
         if(this.sprite.y<0){
-            this.sprite.y+=height
+            this.sprite.y+=windowHeight
         }
         if(this.sprite.y>height){
-            this.sprite.y-=height
+            this.sprite.y-=windowHeight
         }
         if(this.sprite.x<0){
-            this.sprite.x+=width
+            this.sprite.x+=windowWidth
         }
-        if(this.sprite.x>width){
-            this.sprite.x-=width
+        if(this.sprite.x>windowWidth){
+            this.sprite.x-=windowWidth
         }
         boidX[this.id]=this.sprite.x
         boidY[this.id]=this.sprite.y
@@ -86,5 +90,14 @@ class Boid{
             this.vX+=Alignment*(SVX/boidCount)
         if(!isNaN(Alignment*(SVY/boidCount)))
             this.vY+=Alignment*(SVX/boidCount)
+    }
+    destroy(){
+        this.sprite.destroy()
+        boidX.splice(this.id,1)
+        boidY.splice(this.id,1)
+        boidVX.splice(this.id,1)
+        boidVY.splice(this.id,1)
+        boids.splice(this.id,1)
+        lastId--
     }
 }
