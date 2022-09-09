@@ -3,9 +3,10 @@ class Boid{
         this.distance=0;this.target=0
         this.id=id
         this.sprite=createSprite(random(0, width), random(0, height), 48, 48)
-        this.color=[Math.floor(random(0, 255)), Math.floor(random(0, 255)), Math.floor(random(0, 255))]
+        this.color=[360, 100, 90]
         this.sprite.draw=()=>{
             push()
+            colorMode(HSB)
             fill(this.color[0], this.color[1], this.color[2])
             noStroke()
             triangle(-8, -5, -8, 5, 8, 0)
@@ -28,6 +29,9 @@ class Boid{
         if(this.id>=Boids){
             this.destroy()
         }
+        if(this.color[0]>360){
+            this.color[0]=360-this.color[0]
+        }
     }
     move(lx, ly){
         this.sprite.x=width/2-this.vX
@@ -41,16 +45,20 @@ class Boid{
         this.sprite.x=lx+this.vX
         this.sprite.y=ly+this.vY
         if(this.sprite.y<0){
-            this.sprite.y+=windowHeight
+            this.sprite.y+=height
+            this.color[0]=second()*3+0
         }
         if(this.sprite.y>height){
-            this.sprite.y-=windowHeight
+            this.sprite.y-=height
+            this.color[0]=second()*3+50
         }
         if(this.sprite.x<0){
-            this.sprite.x+=windowWidth
+            this.sprite.x+=width
+            this.color[0]=second()*3+100
         }
-        if(this.sprite.x>windowWidth){
-            this.sprite.x-=windowWidth
+        if(this.sprite.x>width){
+            this.sprite.x-=width
+            this.color[0]=second()*3+150
         }
         boidX[this.id]=this.sprite.x
         boidY[this.id]=this.sprite.y
@@ -90,6 +98,12 @@ class Boid{
             this.vX+=Alignment*(SVX/boidCount)
         if(!isNaN(Alignment*(SVY/boidCount)))
             this.vY+=Alignment*(SVX/boidCount)
+        if(dist(this.sprite.x, this.sprite.y, mouseX, mouseY)<Range&&params.BoidsAvoidMouse=='yes'){
+            this.distX=mouseX-this.sprite.x
+            this.distY=mouseY-this.sprite.y
+            this.vX+=negSep*(this.distX/dist(this.sprite.x, this.sprite.y, mouseX, mouseY))
+            this.vY+=negSep*(this.distY/dist(this.sprite.x, this.sprite.y, mouseX, mouseY))
+        }
     }
     destroy(){
         this.sprite.destroy()
