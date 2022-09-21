@@ -3,9 +3,10 @@ var boidX=[]
 var boidY=[]
 var boidVX=[]
 var boidVY=[]
+var shapeTrails=[]
 var gui, guiHTML
 var lastId=0
-var TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=250, BLU=false, alarmIsActive=false
+var TargetSpeed, Resolve, Range, Separation, Cohesion, Alignment0, Boids, BLU=false, alarmIsActive=false, TrailLength
 var params={
     TargetSpeedMin:0.50, TargetSpeedMax:5.00, TargetSpeedStep:0.01,TargetSpeed:2.85,
     ResolveMin:0.01, ResolveMax:1.00, ResolveStep:0.01,Resolve:0.2,
@@ -14,9 +15,17 @@ var params={
     CohesionMin:0.00, CohesionMax:0.50, CohesionStep:0.01,Cohesion:0.03,
     AlignmentMin:0.00, AlignmentMax:0.10, AlignmentStep:0.01, Alignment:0.03,
     BoidsMin:1, BoidsMax:200, BoidsStep:1, Boids:50,
+    TrailLengthMin:0, TrailLengthMax:20, TrailLengthStep:1, TrailLength:0, 
     UnlockBoidLimit:['no', 'yes'],
     BoidsAvoidMouse:['no', 'yes']
 }
+var timer=0
+setInterval(() => {
+    timer+=0.005
+    if(timer>=60){
+        timer=0
+    }
+}, 1);
 function setup(){
     canvas=createCanvas(windowWidth, windowHeight)
     createBoids(250, 0)
@@ -27,7 +36,7 @@ function setup(){
     fixGui()
 }
 function draw(){
-    background(0)
+    background('rgba(0,0,0,1)')
     correctVars()
 
     for(let boid of boids){
@@ -42,7 +51,7 @@ function draw(){
     }
     if(params.UnlockBoidLimit=='yes'&&!alarmIsActive&&!BLU){
         alarmIsActive=true
-        if(window.confirm("Are you sure you want to unlock the limit? Tho many boids can start to lag your device.")){
+        if(window.confirm("Are you sure you want to unlock the limit? Too many boids can start to lag your device.")){
             alarmIsActive=false
             BLU=true
         }else{
@@ -82,8 +91,9 @@ let correctVars=()=>{
     Cohesion=params.Cohesion
     Alignment=params.Alignment
     Boids=params.Boids
+    TrailLength=params.TrailLength
 }
 let fixGui=()=>{
-    guiHTML.children[7].children[0].innerHTML='<b>Unlock Boid Limit?</b>'
-    guiHTML.children[8].children[0].innerHTML='<b>Do Boids Avoid Mouse?</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Not available in mobile)'
+    guiHTML.children[8].children[0].innerHTML='<b>Unlock Boid Limit?</b>'
+    guiHTML.children[9].children[0].innerHTML='<b>Do Boids Avoid Mouse?</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Not available in mobile)'
 }

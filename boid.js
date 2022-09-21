@@ -1,16 +1,22 @@
 class Boid{
     constructor(id){
+        this.trails=[]
         this.distance=0;this.target=0
         this.id=id
         this.sprite=createSprite(random(0, width), random(0, height), 48, 48)
-        this.color=[360, 100, 90]
+        this.color=[random(0, 360), 100, 90]
         this.sprite.draw=()=>{
-            push()
-            colorMode(HSB)
-            fill(this.color[0], this.color[1], this.color[2])
-            noStroke()
-            triangle(-8, -5, -8, 5, 8, 0)
-            pop()
+            this.trails.push(new ShapeTrail((alpha, color)=>{
+                colorMode(HSB)
+                fill(color[0], color[1], color[2], alpha)
+                noStroke()
+                beginShape()
+                vertex(-8, -5)
+                vertex(8, 0)
+                vertex(-8, 5)
+                vertex(0, 0)
+                endShape(CLOSE)
+            },TrailLength, this.color, this.id, this.sprite.x, this.sprite.y, this.sprite.rotation))
         }
         boids.push(this)
         this.vX=random(-5, 5)
@@ -32,6 +38,9 @@ class Boid{
         if(this.color[0]>360){
             this.color[0]=360-this.color[0]
         }
+        for(let trail of this.trails){
+            trail.run()
+        }
     }
     move(lx, ly){
         this.sprite.x=width/2-this.vX
@@ -46,19 +55,19 @@ class Boid{
         this.sprite.y=ly+this.vY
         if(this.sprite.y<0){
             this.sprite.y+=height
-            this.color[0]=second()*3+0
+            this.color[0]=timer*6
         }
         if(this.sprite.y>height){
             this.sprite.y-=height
-            this.color[0]=second()*3+50
+            this.color[0]=timer*6-50
         }
         if(this.sprite.x<0){
             this.sprite.x+=width
-            this.color[0]=second()*3+100
+            this.color[0]=timer*6-100
         }
         if(this.sprite.x>width){
             this.sprite.x-=width
-            this.color[0]=second()*3+150
+            this.color[0]=timer*6-150
         }
         boidX[this.id]=this.sprite.x
         boidY[this.id]=this.sprite.y
@@ -112,6 +121,6 @@ class Boid{
         boidVX.splice(this.id,1)
         boidVY.splice(this.id,1)
         boids.splice(this.id,1)
-        lastId--
+        lastId-- 
     }
 }
