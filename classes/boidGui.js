@@ -4,13 +4,13 @@ class BoidGui{
         this.components={
             openGuiButton:createButton('', 0, 0, deviceRotation=='portrait'?height/16:width/16, deviceRotation=='portrait'?height/16:width/16),
             closeGuiButton:createButton('Close', 0, height-height/10, width/2, height/10),
-            targetSpeedSlider:createSlider('',width/16,height/16,width/3,height/15, 0.50, 5.00),
-            resolveSlider:createSlider('',width/16,height/16*3,width/3,height/15, 0.01, 1.00),
-            rangeSlider:createSlider('',width/16,height/16*5,width/3,height/15, 20, 150),
-            separationSlider:createSlider('',width/16,height/16*7,width/3,height/15, 0.01,0.2),
-            cohesionSlider:createSlider('',width/16,height/16*9,width/3,height/15, 0.00,0.50),
-            alignmentSlider:createSlider('',width/16,height/16*11,width/3,height/15, 0.00,0.10),
-            boidsSlider:createSlider('',width/16,height/16*13,width/3,height/15, 1, 200)
+            targetSpeedSlider:createSlider('',width/12,height/16,width/3,height/15, 0.50, 5.00),
+            resolveSlider:createSlider('',width/12,height/16*3,width/3,height/15, 0.01, 1.00),
+            rangeSlider:createSlider('',width/12,height/16*5,width/3,height/15, 20, 150),
+            separationSlider:createSlider('',width/12,height/16*7,width/3,height/15, 0.01,0.2),
+            cohesionSlider:createSlider('',width/12,height/16*9,width/3,height/15, 0.00,0.50),
+            alignmentSlider:createSlider('',width/12,height/16*11,width/3,height/15, 0.00,0.10),
+            boidsSlider:createSlider('',width/12,height/16*13,width/3,height/15, 1, 200)
         }
         this.setupGui()
     }
@@ -103,16 +103,37 @@ class BoidGui{
         }
     }
     drawText(){
-        textAlign(CENTER)
-        textSize(deviceRotation=='portrait'?height/50:width/50)
-        stroke(0)
-        fill(0)
-        text(`Target Speed: ${TargetSpeed}`, width/4.5, height/20)
-        text(`Resolve: ${Resolve}`, width/4.5, height/20*3.5)
-        text(`Range: ${Range}`, width/4.5, height/20*6)
-        text(`Separation: ${Separation}`, width/4.5, height/20*8.5)
-        text(`Cohesion: ${Cohesion}`, width/4.5, height/20*11)
-        text(`Alignment: ${Alignment}`, width/4.5, height/20*13.5)
-        text(`Number of Boids: ${Boids}`, width/4.5, height/20*16)
+        if(deviceRotation=='landscape'){
+            textAlign(CENTER)
+            textSize(deviceRotation=='portrait'?height/50:width/50)
+            stroke(0)
+            fill(0)
+            text(`Target Speed: ${TargetSpeed}`, width/4, height/20)
+            text(`Resolve: ${Resolve}`, width/4, height/20*3.5)
+            text(`Range: ${Range}`, width/4, height/20*6)
+            text(`Separation: ${Separation}`, width/4, height/20*8.5)
+            text(`Cohesion: ${Cohesion}`, width/4, height/20*11)
+            text(`Alignment: ${Alignment}`, width/4, height/20*13.5)
+            text(`Number of Boids: ${Boids}`, width/4, height/20*16)
+        }else{
+            textAlign(CENTER)
+            textSize(deviceRotation=='portrait'?height/50:width/50)
+            stroke(0)
+            fill(0)
+            text(`Target Speed:`, width/4, height/40)
+            text(TargetSpeed, width/4, height/20)
+            text(`Resolve:`, width/4, height/40*6)
+            text(Resolve, width/4, height/20*3.5)
+            text(`Range:`, width/4, height/40*11)
+            text(Range, width/4, height/20*6)
+            text(`Separation:`, width/4, height/40*16)
+            text(Separation, width/4, height/20*8.5)
+            text(`Cohesion:`, width/4, height/40*21)
+            text(Cohesion, width/4, height/20*11)
+            text(`Alignment:`, width/4, height/40*26)
+            text(Alignment, width/4, height/20*13.5)
+            text(`Number of Boids:`, width/4, height/40*31)
+            text(Boids, width/4, height/20*16)
+        }
     }
 }
