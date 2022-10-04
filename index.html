@@ -1,25 +1,19 @@
 <!DOCTYPE html>
+<head>
+    <link rel="manifest" href="./manifest.json"/>
+  <script>
+    // Check that service workers are supported
+    if (navigator && navigator.serviceWorker) {
+      navigator.serviceWorker.register('/sw.js', { scope: './' });
+    }
+  </script>
+</head>
 <header>
     <script src="lib/p5.min.js"></script>
-    <script src="lib/p5.sound.min.js"></script>
     <script src="lib/planck.min.js"></script>
     <script src="lib/p5.play.min.js"></script>
     <script src="lib/p5.touchgui.min.js"></script>
 </header>
-<head>
-  <script>
-    //For PWA
-    // Check that service workers are supported
-    if ("serviceWorker" in navigator) {
-      // Use the window load event to keep the page load performant
-    
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js");
-      });
-    }
-  </script>
-  <link rel="manifest" href="./manifest.json" />
-</head>
 <body>
     <link rel="stylesheet" href="lib/style.min.css">
     <script src="classes/boid.js"></script>
