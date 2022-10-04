@@ -1,0 +1,31 @@
+{
+    "name": "Boid Simulation",
+    "short_name": "Boid Sim",
+    "icons": [
+      {
+        "src": "./assets/boids_100.png",
+        "sizes": "100x100",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/boids_150.png",
+        "sizes": "150x150",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/boids_250.png",
+        "sizes": "250x250",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/boids_500.png",
+        "sizes": "500x500",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#FFFFFF",
+    "background_color": "#FFFFFF",
+    "start_url": "/Boid-Simulation/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
