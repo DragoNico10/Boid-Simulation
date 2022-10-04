@@ -4,11 +4,15 @@ var boidY=[]
 var boidVX=[]
 var boidVY=[]
 var shapeTrails=[]
-var gui, guiHTML
+var gui
 var lastId=0
 var deviceRotation=''
-var TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0
+var deviceType
+var BAMOT='No',HDBIWMOT='Avoid',TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0
 var timer=0
+let lf
+var dT
+var hasTouched=false,isTouching=false
 setInterval(() => {
     timer+=0.005
     if(timer>=60){
@@ -16,19 +20,25 @@ setInterval(() => {
     }
 }, 1);
 function setup(){
-    canvas=createCanvas(windowWidth, windowHeight)
+    createCanvas(windowWidth, windowHeight)
+    deviceType=getDeviceType()
     createBoids(50, 0)
     gui = new BoidGui()
     frameRate(60)
     deviceRotation = width>height?'landscape':'portrait'
 }
 function draw(){
+    
+
+    if(lf!=undefined){
+        dT=performance.now()-lf
+    }
+    lf=performance.now()
     background(0)
 
     for(let boid of boids){
         boid.run()
     }
-    drawSprites()
     if(Boids>boids.length){
         while(boids.length<Boids){
             new Boid(lastId)
@@ -57,6 +67,9 @@ function draw(){
         }
     }*/
     gui.draw()
+    if(hasTouched&&isTouching){
+        isTouching=false
+    }
 }
 let createBoids =(num, startId)=>{
     for(let i = startId;i<num;i++){
@@ -66,11 +79,25 @@ let createBoids =(num, startId)=>{
 }
 var windowResized=()=>{
     location.reload()
-    /*canvas.remove()
-    canvas=createCanvas(windowWidth, windowHeight)
-    //while(boids.length!=0){
-        for(let boid of boids){
-            boid.destroy()
-        }
-    //}*/
+}
+const getDeviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return "tablet";
+    }
+    if (
+      /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua
+      )
+    ) {
+      return "mobile";
+    }
+    return "desktop";
+  };
+ontouchstart=()=>{
+    isTouching=true
+    hasTouched=true
+}
+ontouchend=()=>{
+    hasTouched=false
 }
