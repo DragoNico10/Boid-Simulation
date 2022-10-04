@@ -1,6 +1,6 @@
 {
-    "name": "Boid Simulation",
     "short_name": "Boid Sim",
+    "name": "Boid Simulation",
     "icons": [
       {
         "src": "./assets/boids_100.png",
@@ -25,7 +25,7 @@
     ],
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
-    "start_url": "/Boid-Simulation/",
+    "start_url": "./index.html",
     "display": "standalone",
     "orientation": "portrait"
   }
