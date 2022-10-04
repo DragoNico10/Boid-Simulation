@@ -15,16 +15,22 @@
       {
         "src": "./assets/boids_250.png",
         "sizes": "250x250",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose":"maskable"
       },
       {
         "src": "./assets/boids_500.png",
         "sizes": "500x500",
         "type": "image/png"
+      },
+      {
+        "src": "./assets/boids_1000.png",
+        "sizes": "1000x1000",
+        "type": "image/png"
       }
     ],
-    "theme_color": "#FFFFFF",
-    "background_color": "#FFFFFF",
+    "theme_color": "#000000",
+    "background_color": "#000000",
     "start_url": "index.html",
     "id":"/Boid-Simulation/index.html",
     "display": "standalone",
