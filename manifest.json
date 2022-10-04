@@ -33,5 +33,6 @@
     "background_color": "#000000",
     "start_url": "index.html",
     "id":"/Boid-Simulation/index.html",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation":"any"
   }
