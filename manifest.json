@@ -26,6 +26,7 @@
     "theme_color": "#FFFFFF",
     "background_color": "#FFFFFF",
     "start_url": "index.html",
+    "id":"/Boid-Simulation/index.html",
     "display": "standalone",
     "orientation": "portrait"
   }
