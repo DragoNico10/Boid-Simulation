@@ -1,24 +1,4 @@
-var boids=[]
-var boidX=[]
-var boidY=[]
-var boidVX=[]
-var boidVY=[]
-var shapeTrails=[]
-var gui
-var lastId=0
-var deviceRotation=''
-var deviceType
-var BAMOT='No',HDBIWMOT='Avoid',TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0
-var timer=0
-let lf
-var dT
-var hasTouched=false,isTouching=false
-setInterval(() => {
-    timer+=0.005
-    if(timer>=60){
-        timer=0
-    }
-}, 1);
+var boids=[],shapeTrails=[],gui,lastId=0,deviceRotation='',deviceType,BAMOT='No',HDBIWMOT='Avoid',TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0,hasTouched=false,isTouching=false
 function setup(){
     createCanvas(windowWidth, windowHeight)
     deviceType=getDeviceType()
@@ -28,23 +8,14 @@ function setup(){
     deviceRotation = width>height?'landscape':'portrait'
 }
 function draw(){
-    
-
-    if(lf!=undefined){
-        dT=performance.now()-lf
-    }
-    lf=performance.now()
     background(0)
-
-    for(let boid of boids){
+    for(let boid of boids)
         boid.run()
-    }
-    if(Boids>boids.length){
+    if(Boids>boids.length)
         while(boids.length<Boids){
             new Boid(lastId)
             lastId++
         }
-    }
     /*if(params.UnlockBoidLimit=='yes'&&!alarmIsActive&&!BLU){
         alarmIsActive=true
         if(window.confirm("Are you sure you want to unlock the limit? Too many boids can start to lag your device.")){
@@ -67,9 +38,8 @@ function draw(){
         }
     }*/
     gui.draw()
-    if(hasTouched&&isTouching){
+    if(hasTouched&&isTouching)
         isTouching=false
-    }
 }
 let createBoids =(num, startId)=>{
     for(let i = startId;i<num;i++){

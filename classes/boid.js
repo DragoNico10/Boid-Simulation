@@ -23,14 +23,8 @@ class Boid{
         this.vY=random(-5, 5)
         this.distX=0
         this.distY=0
-        boidX.push(this.sprite.x)
-        boidY.push(this.sprite.y)
-        boidVX.push(this.vX)
-        boidVY.push(this.vY)
-        this.sprite.scale= deviceRotation=='portrait'?height/1600:width/1600
     }
     run(){
-        this.id=boids.indexOf(this)
         this.move(this.sprite.x, this.sprite.y)
         this.calculate()
         if(this.id>=Boids){
@@ -49,6 +43,7 @@ class Boid{
         this.sprite.velocity.y=this.vY*(deltaTime/16)*this.sprite.scale
         if(this.sprite.velocity.x>(20*this.sprite.scale)||this.sprite.velocity.y>(20*this.sprite.scale))this.sprite.isSuperFast=true
         else this.sprite.isSuperFast=false
+        this.sprite.scale= deviceRotation=='landscape'?height/1600:width/1600
     }
     move(lx, ly){
         this.sprite.x=width/2-this.vX
@@ -78,10 +73,6 @@ class Boid{
             this.sprite.x-=width
             this.color[0]=second()*6-150
         }
-        boidX[this.id]=this.sprite.x
-        boidY[this.id]=this.sprite.y
-        boidVX[this.id]=this.vX
-        boidVY[this.id]=this.vY
         
     }
     pointTo(x, y){
@@ -102,15 +93,15 @@ class Boid{
         let SVY=0
         for(let i = 0;i<boids.length;i++){
             if(this.id!=otherId){
-                this.distX=boidX[otherId]-this.sprite.x
-                this.distY=boidY[otherId]-this.sprite.y
+                this.distX=boids[otherId].sprite.x-this.sprite.x
+                this.distY=boids[otherId].sprite.y-this.sprite.y
                 this.distance=Math.sqrt((this.distX*this.distX)+(this.distY*this.distY))
                 if(this.distance<Range*this.sprite.scale){
                     boidCount++
                     sumX+=this.distX
                     sumY+=this.distY
-                    SVX+=boidVX[otherId]-this.vX
-                    SVY+=boidVY[otherId]-this.vY
+                    SVX+=boids[otherId].sprite.velocity.x-this.vX
+                    SVY+=boids[otherId].sprite.velocity.y-this.vY
                     this.vX+=negSep*(this.distX/this.distance)
                     this.vY+=negSep*(this.distY/this.distance)
                 }
@@ -159,10 +150,6 @@ class Boid{
     }
     destroy(){
         this.sprite.remove()
-        boidX.splice(this.id,1)
-        boidY.splice(this.id,1)
-        boidVX.splice(this.id,1)
-        boidVY.splice(this.id,1)
         boids.splice(this.id,1)
         lastId-- 
     }

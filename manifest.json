@@ -1,6 +1,7 @@
 {
     "short_name": "Boid Sim",
     "name": "Boid Simulation",
+    "description":"A project built by Nicolas, inspirated by griffpatch's \"Boid Simulation in scratch\" video.",
     "icons": [
       {
         "src": "./assets/boids_100.png",
@@ -15,7 +16,12 @@
       {
         "src": "./assets/boids_250.png",
         "sizes": "250x250",
-        "type": "image/png",
+        "type": "image/png"
+      },
+      {
+        "src":"./assets/boids_ico.png",
+        "sizes":"300x300",
+        "type":"image/png",
         "purpose":"maskable"
       },
       {
@@ -34,5 +40,5 @@
     "start_url": "index.html",
     "id":"/Boid-Simulation/index.html",
     "display": "standalone",
-    "orientation":"any"
+    "orientation":"natural"
   }
