@@ -3,7 +3,7 @@ class Boid{
         this.trails=[]
         this.distance=0;this.target=0
         this.id=id
-        this.sprite=createSprite(random(0, width), random(0, height),0,0)
+        this.sprite=createSprite(random(0, width), random(0, height))
         this.color=[random(0, 360), 100, 90]
         this.sprite.draw=()=>{
             this.trails.push(new ShapeTrail((alpha, color)=>{
@@ -43,7 +43,7 @@ class Boid{
         this.sprite.velocity.y=this.vY*(deltaTime/16)*this.sprite.scale
         if(this.sprite.velocity.x>(20*this.sprite.scale)||this.sprite.velocity.y>(20*this.sprite.scale))this.sprite.isSuperFast=true
         else this.sprite.isSuperFast=false
-        this.sprite.scale= deviceRotation=='landscape'?height/1600:width/1600
+        this.sprite.scale= deviceRotation=='portrait'?height/1600:width/1600
     }
     move(lx, ly){
         this.sprite.x=width/2-this.vX
@@ -59,19 +59,19 @@ class Boid{
         this.vY+=Resolve*(this.target-this.vY)
         if(this.sprite.y<0){
             this.sprite.y+=height
-            this.color[0]=second()*6
+            this.color[0]=(new Date().getSeconds()+new Date().getMilliseconds()/1000)*6
         }
         if(this.sprite.y>height){
             this.sprite.y-=height
-            this.color[0]=second()*6-50
+            this.color[0]=(new Date().getSeconds()+new Date().getMilliseconds()/1000)*6+50
         }
         if(this.sprite.x<0){
             this.sprite.x+=width
-            this.color[0]=second()*6-100
+            this.color[0]=(new Date().getSeconds()+new Date().getMilliseconds()/1000)*6+100
         }
         if(this.sprite.x>width){
             this.sprite.x-=width
-            this.color[0]=second()*6-150
+            this.color[0]=(new Date().getSeconds()+new Date().getMilliseconds()/1000)*6+150
         }
         
     }

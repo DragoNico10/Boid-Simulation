@@ -11,8 +11,9 @@ class BoidGui{
             cohesionSlider:createSlider('',width/12,height/25*9,width/3,height/30, 0.00,0.50),
             alignmentSlider:createSlider('',width/12,height/25*11,width/3,height/30, 0.00,0.10),
             boidsSlider:createSlider('',width/12,height/25*13,width/3,height/30, 1, 300),
-            BAMOTD:new MDropdown(width/12,height/25*15,width/3,height/30,['No','Yes']),
-            HDBIWMOT:new MDropdown(width/12,height/25*17,width/3,height/30,['Avoid','Attract'])
+            trailSlider:createSlider('',width/12,height/25*15,width/3,height/30,0,20),
+            BAMOTD:new MDropdown(width/12,height/25*17,width/3,height/30,['No','Yes']),
+            HDBIWMOT:new MDropdown(width/12,height/25*19,width/3,height/30,['Avoid','Attract'])
         }
         this.setupGui()
     }
@@ -32,6 +33,14 @@ class BoidGui{
         this.components.BAMOTD.draw()
         if(this.components.openGuiButton.visible==true){
             this.drawOpenButton()
+        }
+        if(this.open=true){
+            if(deviceType=='desktop'&&mouse.x>width/2&&mouse.pressed())this.components.closeGuiButton.onPress()
+            if(deviceType=='mobile'||deviceType=='tablet'){
+                for(let touch of touches){
+                    if(touch.x>width/2&&isTouching)this.components.closeGuiButton.onPress()
+                }
+            }
         }
     }
     drawOpenButton(){
@@ -57,6 +66,7 @@ class BoidGui{
         this.components.cohesionSlider.val=Cohesion
         this.components.alignmentSlider.val=Alignment
         this.components.boidsSlider.val=Boids
+        this.components.trailSlider.val=TrailLength
         this.components.openGuiButton._style.rounding=0
         this.components.targetSpeedSlider._style.rounding=0
         this.components.closeGuiButton._style.rounding=0
@@ -66,6 +76,7 @@ class BoidGui{
         this.components.cohesionSlider._style.rounding=0
         this.components.alignmentSlider._style.rounding=0
         this.components.boidsSlider._style.rounding=0
+        this.components.trailSlider._style.rounding=0
         this.gui.visible=false
         this.components.closeGuiButton.visible=false
         this.components.targetSpeedSlider.visible=false
@@ -75,6 +86,7 @@ class BoidGui{
         this.components.cohesionSlider.visible=false
         this.components.alignmentSlider.visible=false
         this.components.boidsSlider.visible=false
+        this.components.trailSlider.visible=false
         this.components.BAMOTD.visible=false
         this.components.HDBIWMOT.visible=false
         this.components.openGuiButton.onPress=()=>{
@@ -88,6 +100,7 @@ class BoidGui{
             this.components.cohesionSlider.visible=true
             this.components.alignmentSlider.visible=true
             this.components.boidsSlider.visible=true
+            this.components.trailSlider.visible=true
             this.components.BAMOTD.visible=true
             this.components.HDBIWMOT.visible=true
         }
@@ -102,6 +115,7 @@ class BoidGui{
             this.components.cohesionSlider.visible=false
             this.components.alignmentSlider.visible=false
             this.components.boidsSlider.visible=false
+            this.components.trailSlider.visible=false
             this.components.BAMOTD.visible=false
             this.components.HDBIWMOT.visible=false
         }
@@ -126,6 +140,9 @@ class BoidGui{
         this.components.boidsSlider.onChange=()=>{
             Boids=Math.floor(this.components.boidsSlider.val)
         }
+        this.components.trailSlider.onChange=()=>{
+            TrailLength=Math.floor(this.components.trailSlider.val)
+        }
         this.components.BAMOTD.onChange=val=>{
             BAMOT=val
         }
@@ -146,8 +163,9 @@ class BoidGui{
             text(`Cohesion: ${Cohesion}`, width/4, height/30*10.5)
             text(`Alignment: ${Alignment}`, width/4, height/30*12.8)
             text(`Number of Boids: ${Boids}`, width/4, height/30*15.2)
-            text(deviceType=='desktop'?'Do boids interact with Mouse?':'Do boids interact with fingers?',width/4,height/30*17.8)
-            text(deviceType=='desktop'?'How do boids interact with Mouse?':'How do boids interact with fingers?',width/4,height/30*20.1)
+            text(`Length of trails: ${TrailLength}`, width/4,height/30*17.8)
+            text(deviceType=='desktop'?'Do boids interact with Mouse?':'Do boids interact with fingers?',width/4,height/30*20.1)
+            text(deviceType=='desktop'?'How do boids interact with Mouse?':'How do boids interact with fingers?',width/4,height/30*22.5)
         }else{
             textAlign(CENTER)
             textSize(deviceRotation=='portrait'?height/50:width/50)
@@ -167,10 +185,12 @@ class BoidGui{
             text(Alignment, width/4, height/30*13)
             text(`Number of Boids:`, width/4, height/40*19.8)
             text(Boids, width/4, height/30*15.5)
-            text(deviceType=='desktop'?'Do boids interact':'Do boids interact',width/4,height/40*22.9)
-            text(deviceType=='desktop'?'with mouse?':'with fingers?',width/4,height/40*23.8)
-            text(deviceType=='desktop'?'How do boids interact':'how do boids interact',width/4,height/40*26.1)
+            text('Length of Trails:', width/4,height/40*22.9)
+            text(TrailLength,width/4,height/40*23.8)
+            text('Do boids interact',width/4,height/40*26.1)
             text(deviceType=='desktop'?'with mouse?':'with fingers?',width/4,height/40*27)
+            text('How do boids interact',width/4,height/40*29.3)
+            text(deviceType=='desktop'?'with mouse?':'with fingers?',width/4,height/40*30.1)
         }
     }
 }
