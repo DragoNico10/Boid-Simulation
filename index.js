@@ -1,4 +1,4 @@
-var boids=[],shapeTrails=[],gui,lastId=0,deviceRotation='',deviceType,BAMOT='No',HDBIWMOT='Avoid',TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0,hasTouched=false,isTouching=false
+var boids=[],shapeTrails=[],gui,lastId=0,deviceRotation='',deviceType,interact='No',interactType='Avoid',TargetSpeed=2.85, Resolve=0.2, Range=75, Separation=0.2, Cohesion=0.03, Alignment=0.03, Boids=50, BLU=false, alarmIsActive=false, TrailLength=0,hasTouched=false,isTouching=false
 function setup(){
     createCanvas(windowWidth, windowHeight)
     deviceType=getDeviceType()

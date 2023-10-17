@@ -12,8 +12,8 @@ class BoidGui{
             alignmentSlider:createSlider('',width/12,height/25*11,width/3,height/30, 0.00,0.10),
             boidsSlider:createSlider('',width/12,height/25*13,width/3,height/30, 1, 300),
             trailSlider:createSlider('',width/12,height/25*15,width/3,height/30,0,20),
-            BAMOTD:new MDropdown(width/12,height/25*17,width/3,height/30,['No','Yes']),
-            HDBIWMOT:new MDropdown(width/12,height/25*19,width/3,height/30,['Avoid','Attract'])
+            interact:new MDropdown(width/12,height/25*17,width/3,height/30,['No','Yes']),
+            interactType:new MDropdown(width/12,height/25*19,width/3,height/30,['Avoid','Attract'])
         }
         this.setupGui()
     }
@@ -29,8 +29,8 @@ class BoidGui{
             this.drawText()
         }
         this.gui.draw()
-        this.components.HDBIWMOT.draw()
-        this.components.BAMOTD.draw()
+        this.components.interact.draw()
+        this.components.interactType.draw()
         if(this.components.openGuiButton.visible==true){
             this.drawOpenButton()
         }
@@ -87,8 +87,8 @@ class BoidGui{
         this.components.alignmentSlider.visible=false
         this.components.boidsSlider.visible=false
         this.components.trailSlider.visible=false
-        this.components.BAMOTD.visible=false
-        this.components.HDBIWMOT.visible=false
+        this.components.interact.visible=false
+        this.components.interactType.visible=false
         this.components.openGuiButton.onPress=()=>{
             this.gui.visible=true
             this.components.openGuiButton.visible=false
@@ -101,8 +101,8 @@ class BoidGui{
             this.components.alignmentSlider.visible=true
             this.components.boidsSlider.visible=true
             this.components.trailSlider.visible=true
-            this.components.BAMOTD.visible=true
-            this.components.HDBIWMOT.visible=true
+            this.components.interact.visible=true
+            this.components.interactType.visible=true
         }
         this.components.closeGuiButton.onPress=()=>{
             this.gui.visible=false
@@ -116,8 +116,8 @@ class BoidGui{
             this.components.alignmentSlider.visible=false
             this.components.boidsSlider.visible=false
             this.components.trailSlider.visible=false
-            this.components.BAMOTD.visible=false
-            this.components.HDBIWMOT.visible=false
+            this.components.interact.visible=false
+            this.components.interactType.visible=false
         }
         this.components.targetSpeedSlider.onChange=()=>{
             TargetSpeed=this.components.targetSpeedSlider.val
@@ -143,11 +143,11 @@ class BoidGui{
         this.components.trailSlider.onChange=()=>{
             TrailLength=Math.floor(this.components.trailSlider.val)
         }
-        this.components.BAMOTD.onChange=val=>{
+        this.components.interact.onChange=val=>{
             BAMOT=val
         }
-        this.components.HDBIWMOT.onChange=val=>{
-            HDBIWMOT=val
+        this.components.interactType.onChange=val=>{
+            interactType=val
         }
     }
     drawText(){

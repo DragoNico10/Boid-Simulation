@@ -108,17 +108,13 @@ class Boid{
             }
             otherId++
         }
-        if(!isNaN(Cohesion*(sumX/boidCount)))
-            this.vX+=Cohesion*(sumX/boidCount)
-        if(!isNaN(Cohesion*(sumY/boidCount)))
-            this.vY+=Cohesion*(sumY/boidCount)
-        if(!isNaN(Alignment*(SVX/boidCount)))
-            this.vX+=Alignment*(SVX/boidCount)
-        if(!isNaN(Alignment*(SVY/boidCount)))
-            this.vY+=Alignment*(SVX/boidCount)
+        this.vX+=Cohesion*(sumX/boidCount)
+        this.vY+=Cohesion*(sumY/boidCount)
+        this.vX+=Alignment*(SVX/boidCount)
+        this.vY+=Alignment*(SVX/boidCount)
         if(deviceType=='desktop'){
-            if(dist(this.sprite.x, this.sprite.y, mouseX, mouseY)<Range*this.sprite.scale&&BAMOT=='Yes'){
-                if(HDBIWMOT=='Avoid'){
+            if(dist(this.sprite.x, this.sprite.y, mouseX, mouseY)<Range*this.sprite.scale&&interact=='Yes'){
+                if(interactType=='Avoid'){
                     this.distX=mouseX-this.sprite.x
                     this.distY=mouseY-this.sprite.y
                     this.vX+=negSep*(this.distX/dist(this.sprite.x, this.sprite.y, mouseX, mouseY))
@@ -132,8 +128,8 @@ class Boid{
             }
         }else{
             for(let pos of touches){
-                if(dist(this.sprite.x, this.sprite.y, pos.x, pos.y)<Range*this.sprite.scale&&BAMOT=='Yes'){
-                    if(HDBIWMOT=='Avoid'){
+                if(dist(this.sprite.x, this.sprite.y, pos.x, pos.y)<Range*this.sprite.scale&&interact=='Yes'){
+                    if(interactType=='Avoid'){
                         this.distX=pos.x-this.sprite.x  
                         this.distY=pos.y-this.sprite.y
                         this.vX+=negSep*(this.distX/dist(this.sprite.x, this.sprite.y, pos.x, pos.y))
