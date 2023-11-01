@@ -23,6 +23,7 @@ class Boid{
         this.vY=random(-5, 5)
         this.distX=0
         this.distY=0
+        this.sprite.overlap(gui.gui)
     }
     run(){
         this.move(this.sprite.x, this.sprite.y)
@@ -108,10 +109,14 @@ class Boid{
             }
             otherId++
         }
-        this.vX+=Cohesion*(sumX/boidCount)
-        this.vY+=Cohesion*(sumY/boidCount)
-        this.vX+=Alignment*(SVX/boidCount)
-        this.vY+=Alignment*(SVX/boidCount)
+        if(!isNaN(Cohesion*(sumX/boidCount)))
+            this.vX+=Cohesion*(sumX/boidCount)
+        if(!isNaN(Cohesion*(sumY/boidCount)))
+            this.vY+=Cohesion*(sumY/boidCount)
+        if(!isNaN(Alignment*(SVX/boidCount)))
+            this.vX+=Alignment*(SVX/boidCount)
+        if(!isNaN(Alignment*(SVY/boidCount)))
+            this.vY+=Alignment*(SVX/boidCount)
         if(deviceType=='desktop'){
             if(dist(this.sprite.x, this.sprite.y, mouseX, mouseY)<Range*this.sprite.scale&&interact=='Yes'){
                 if(interactType=='Avoid'){

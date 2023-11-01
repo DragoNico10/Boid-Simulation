@@ -2,8 +2,8 @@ var boids=[],shapeTrails=[],gui,lastId=0,deviceRotation='',deviceType,interact='
 function setup(){
     createCanvas(windowWidth, windowHeight)
     deviceType=getDeviceType()
+    gui = new GUI()
     createBoids(50, 0)
-    gui = new BoidGui()
     frameRate(60)
     deviceRotation = width>height?'landscape':'portrait'
 }
@@ -11,11 +11,11 @@ function draw(){
     background(0)
     for(let boid of boids)
         boid.run()
-    if(Boids>boids.length)
-        while(boids.length<Boids){
-            new Boid(lastId)
-            lastId++
-        }
+    if(Boids>boids.length){
+        new Boid(lastId)
+        lastId++
+    }
+    gui.draw()
     /*if(params.UnlockBoidLimit=='yes'&&!alarmIsActive&&!BLU){
         alarmIsActive=true
         if(window.confirm("Are you sure you want to unlock the limit? Too many boids can start to lag your device.")){
@@ -37,7 +37,6 @@ function draw(){
             params.Boids=200
         }
     }*/
-    gui.draw()
     if(hasTouched&&isTouching)
         isTouching=false
 }
@@ -47,9 +46,9 @@ let createBoids =(num, startId)=>{
         lastId++
     }
 }
-var windowResized=()=>{
+/*var windowResized=()=>{
     location.reload()
-}
+}*/
 const getDeviceType = () => {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
