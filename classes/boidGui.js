@@ -144,7 +144,7 @@ class BoidGui{
             TrailLength=Math.floor(this.components.trailSlider.val)
         }
         this.components.interact.onChange=val=>{
-            BAMOT=val
+             interact=val
         }
         this.components.interactType.onChange=val=>{
             interactType=val
