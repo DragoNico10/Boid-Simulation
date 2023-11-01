@@ -27,7 +27,7 @@ class Boid{
     run(){
         this.move(this.sprite.x, this.sprite.y)
         this.calculate()
-        if(this.id>=Boids){
+        if(this.id>=Boids-1){
             this.destroy()
         }
         while(this.color[0]>360){
@@ -53,8 +53,10 @@ class Boid{
         this.distance=dist(this.sprite.x, this.sprite.y, width/2, height/2)
         this.sprite.x=lx
         this.sprite.y=ly
+        if(!isNaN(this.vX/this.distance))
         this.target=(this.vX/this.distance)*TargetSpeed
         this.vX+=Resolve*(this.target-this.vX)
+        if(!isNaN(this.vY/this.distance))
         this.target=(this.vY/this.distance)*TargetSpeed
         this.vY+=Resolve*(this.target-this.vY)
         if(this.sprite.y<0){
@@ -102,16 +104,22 @@ class Boid{
                     sumY+=this.distY
                     SVX+=boids[otherId].sprite.velocity.x-this.vX
                     SVY+=boids[otherId].sprite.velocity.y-this.vY
+                    if(!isNaN(negSep*(this.distX/this.distance)))
                     this.vX+=negSep*(this.distX/this.distance)
+                    if(!isNaN(negSep*(this.distY/this.distance)))
                     this.vY+=negSep*(this.distY/this.distance)
                 }
             }
             otherId++
         }
-        this.vX+=Cohesion*(sumX/boidCount)
-        this.vY+=Cohesion*(sumY/boidCount)
-        this.vX+=Alignment*(SVX/boidCount)
-        this.vY+=Alignment*(SVX/boidCount)
+        if(!isNaN(Cohesion*(sumX/boidCount)))
+            this.vX+=Cohesion*(sumX/boidCount)
+        if(!isNaN(Cohesion*(sumY/boidCount)))
+            this.vY+=Cohesion*(sumY/boidCount)
+        if(!isNaN(Alignment*(SVX/boidCount)))
+            this.vX+=Alignment*(SVX/boidCount)
+        if(!isNaN(Alignment*(SVY/boidCount)))
+            this.vY+=Alignment*(SVX/boidCount)
         if(deviceType=='desktop'){
             if(dist(this.sprite.x, this.sprite.y, mouseX, mouseY)<Range*this.sprite.scale&&interact=='Yes'){
                 if(interactType=='Avoid'){

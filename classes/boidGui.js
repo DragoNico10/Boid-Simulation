@@ -10,7 +10,7 @@ class BoidGui{
             separationSlider:createSlider('',width/12,height/25*7,width/3,height/30, 0.01,0.50),
             cohesionSlider:createSlider('',width/12,height/25*9,width/3,height/30, 0.00,0.50),
             alignmentSlider:createSlider('',width/12,height/25*11,width/3,height/30, 0.00,0.10),
-            boidsSlider:createSlider('',width/12,height/25*13,width/3,height/30, 1, 300),
+            boidsSlider:createSlider('',width/12,height/25*13,width/3,height/30, 1, 100),
             trailSlider:createSlider('',width/12,height/25*15,width/3,height/30,0,20),
             interact:new MDropdown(width/12,height/25*17,width/3,height/30,['No','Yes']),
             interactType:new MDropdown(width/12,height/25*19,width/3,height/30,['Avoid','Attract'])
